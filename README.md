@@ -56,7 +56,7 @@ struct UIntHash
     }
 };
 
-psset::sparse_map<int, int, UIntHash> smap;
+psset::sparse_map<unsigned int, int, UIntHash> smap;
 
 // smap.add(KEY, VALUE);
 smap.add(1, 42);
