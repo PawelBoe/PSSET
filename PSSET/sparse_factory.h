@@ -2,8 +2,8 @@
 // Created by Pawel Boening on 2019-02-10.
 //
 
-#ifndef PPHY_SPARSEIDFACTORY_H
-#define PPHY_SPARSEIDFACTORY_H
+#ifndef PSSET_SPARSE_FACTORY_H
+#define SSETY_SPARSE_FACTORY_H
 
 
 #include "sparse_map.h"
@@ -104,4 +104,4 @@ namespace psset
 }
 
 
-#endif //PPHY_SPARSEIDFACTORY_H
+#endif //SSETY_SPARSE_FACTORY_H
