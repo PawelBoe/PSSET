@@ -14,6 +14,7 @@ namespace psset
     template<typename Value>
     class sparse_factory
     {
+    public:
         using ValueId = unsigned int;
 
         struct ValueIdHash
