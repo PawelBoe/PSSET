@@ -3,7 +3,7 @@
 //
 
 #ifndef PSSET_SPARSE_FACTORY_H
-#define SSETY_SPARSE_FACTORY_H
+#define PSSET_SPARSE_FACTORY_H
 
 
 #include "sparse_map.h"
@@ -105,4 +105,4 @@ namespace psset
 }
 
 
-#endif //SSETY_SPARSE_FACTORY_H
+#endif //PSSET_SPARSE_FACTORY_H

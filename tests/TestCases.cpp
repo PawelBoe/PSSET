@@ -6,6 +6,7 @@
 
 #include "sparse_set.h"
 #include "sparse_map.h"
+#include "sparse_factory.h"
 
 #include <cstdint>
 
@@ -149,6 +150,30 @@ TEST_CASE( "sparse_map mixed creation and deletion of 10k entities", "[sparse_ma
             REQUIRE( smap.search(e) < smap.size() );
             smap.remove(e);
             REQUIRE( smap.search(e) >= smap.size() );
+        }
+    }
+}
+
+TEST_CASE( "sparse_factor mixed creation and deletion of 10k entities", "[sparse_factory]")
+{
+    using EntityFactory = psset::sparse_factory<Entity>;
+    EntityFactory sfactory;
+
+    std::vector<int> entity_amounts = {3000, 7000, 100, 666, 1000, 10000};
+
+    for (int amount : entity_amounts) {
+        std::vector<EntityFactory::ValueId> valueIds;
+        valueIds.reserve(amount);
+        for (int i = 0; i < amount; ++i) {
+            valueIds.push_back(sfactory.create());
+        }
+
+        REQUIRE(valueIds.size() == amount);
+
+        for (auto id : valueIds) {
+            REQUIRE(sfactory.exists(static_cast<EntityFactory::ValueId >(id)));
+            sfactory.remove(static_cast<EntityFactory::ValueId >(id));
+            REQUIRE(!sfactory.exists(static_cast<EntityFactory::ValueId >(id)));
         }
     }
 }

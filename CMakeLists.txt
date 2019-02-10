@@ -7,7 +7,7 @@ set(CATCH_DIR "tests/catch")
 set(INCLUDE_DIR "PSSET/")
 include_directories(${CATCH_DIR} ${INCLUDE_DIR})
 
-set(SOURCE_FILES PSSET/sparse_map.h PSSET/sparse_set.h)
+set(SOURCE_FILES PSSET/sparse_map.h PSSET/sparse_set.h PSSET/sparse_factory.h)
 
 add_executable(TESTS
         tests/TestMain.cpp
