@@ -3,8 +3,7 @@
 //
 #include <iostream>
 
-#include "sparse_set.h"
-#include "sparse_map.h"
+#include "psset.h"
 
 
 typedef uint16_t EntityIndex;

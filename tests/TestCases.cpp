@@ -4,9 +4,7 @@
 
 #include "catch.hpp"
 
-#include "sparse_set.h"
-#include "sparse_map.h"
-#include "sparse_factory.h"
+#include "psset.h"
 
 #include <cstdint>
 
