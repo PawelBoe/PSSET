@@ -36,6 +36,9 @@ namespace psset
         iterator begin();
         iterator end();
 
+        const iterator begin() const;
+        const iterator end() const;
+
     private:
         ValueId _index_counter = 0;
         psset::sparse_map<ValueId, Value, ValueIdHash> _used;
@@ -84,6 +87,18 @@ namespace psset
 
     template<typename Value>
     typename sparse_factory<Value>::iterator sparse_factory<Value>::end()
+    {
+        return _used.end();
+    }
+
+    template<typename Value>
+    const typename sparse_factory<Value>::iterator sparse_factory<Value>::begin() const
+    {
+        return _used.begin();
+    }
+
+    template<typename Value>
+    const typename sparse_factory<Value>::iterator sparse_factory<Value>::end() const
     {
         return _used.end();
     }
