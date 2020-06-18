@@ -15,7 +15,7 @@ namespace psset
     class sparse_factory
     {
     public:
-        using ValueId = unsigned int;
+        using ValueId = unsigned long;
 
         struct ValueIdHash
         {
@@ -39,24 +39,14 @@ namespace psset
     private:
         ValueId _index_counter = 0;
         psset::sparse_map<ValueId, Value, ValueIdHash> _used;
-        std::vector<ValueId> _unused;
     };
 
     template<typename Value>
     typename sparse_factory<Value>::ValueId sparse_factory<Value>::create()
     {
-        ValueId value_id;
+        ValueId value_id = _index_counter++;
 
-        if (_unused.empty())
-        {
-            value_id = _index_counter++;
-            _used.add(value_id, Value());
-        } else
-        {
-            value_id = _unused.back();
-            _unused.pop_back();
-            _used.add(value_id, Value());
-        }
+        _used.add(value_id, Value());
 
         return value_id;
     }
@@ -83,11 +73,7 @@ namespace psset
     template<typename Value>
     void sparse_factory<Value>::remove(sparse_factory::ValueId p)
     {
-        if (exists(p))
-        {
-            _used.remove(p);
-            _unused.push_back(p);
-        }
+        _used.remove(p);
     }
 
     template<typename Value>
