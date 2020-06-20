@@ -152,7 +152,7 @@ TEST_CASE( "sparse_map mixed creation and deletion of 10k entities", "[sparse_ma
     }
 }
 
-TEST_CASE( "sparse_factor mixed creation and deletion of 10k entities", "[sparse_factory]")
+TEST_CASE( "sparse_factory mixed creation and deletion of 10k entities", "[sparse_factory]")
 {
     using EntityFactory = psset::sparse_factory<Entity>;
     EntityFactory sfactory;

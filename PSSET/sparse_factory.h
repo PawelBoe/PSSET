@@ -15,13 +15,13 @@ namespace psset
     class sparse_factory
     {
     public:
-        using ValueId = unsigned int;
+        using ValueId = unsigned long;
 
         struct ValueIdHash
         {
             unsigned int operator()(ValueId const &e) const
             {
-                return e;
+                return e & 0x00000000FFFFFFFF;
             }
         };
 
@@ -35,8 +35,12 @@ namespace psset
         using iterator = psset::KeyValue<ValueId, Value> *;
         iterator begin();
         iterator end();
+        const iterator begin();
+        const iterator end();
 
     private:
+        ValueId _inc_version(ValueId &e) const;
+
         ValueId _index_counter = 0;
         psset::sparse_map<ValueId, Value, ValueIdHash> _used;
         std::vector<ValueId> _unused;
@@ -77,7 +81,11 @@ namespace psset
     bool sparse_factory<Value>::exists(sparse_factory::ValueId p) const
     {
         auto idx = _used.search(p);
-        return !(idx >= _used.size());
+
+        if (idx >= _used.size())
+            return false;
+
+        return _used.data()[idx].key == p;
     }
 
     template<typename Value>
@@ -86,7 +94,7 @@ namespace psset
         if (exists(p))
         {
             _used.remove(p);
-            _unused.push_back(p);
+            _unused.push_back(_inc_version(p));
         }
     }
 
@@ -100,6 +108,24 @@ namespace psset
     typename sparse_factory<Value>::iterator sparse_factory<Value>::end()
     {
         return _used.end();
+    }
+
+    template<typename Value>
+    const typename sparse_factory<Value>::iterator sparse_factory<Value>::begin()
+    {
+        return _used.begin();
+    }
+
+    template<typename Value>
+    const typename sparse_factory<Value>::iterator sparse_factory<Value>::end()
+    {
+        return _used.end();
+    }
+
+    template<typename Value>
+    ValueId sparse_factory<Value>::_inc_version(sparse_factory::ValueId p) const
+    {
+        return (p & 0x00000000FFFFFFFF) | ((p + 0x0000000100000000) & 0xFFFFFFFF00000000);
     }
 
 }
