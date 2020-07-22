@@ -416,6 +416,8 @@ namespace psset
         bool exists(ValueId p) const;
         void remove(ValueId p);
 
+        unsigned int size() const;
+
         using iterator = psset::KeyValue<ValueId, Value> *;
         iterator begin();
         iterator end();
@@ -481,6 +483,12 @@ namespace psset
             _used.remove(p);
             _unused.push_back(_inc_version(p));
         }
+    }
+
+    template<typename Value>
+    unsigned int sparse_factory<Value>::size() const
+    {
+        return _used.size();
     }
 
     template<typename Value>
